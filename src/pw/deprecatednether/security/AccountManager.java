@@ -18,6 +18,7 @@
 
 package pw.deprecatednether.security;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -25,12 +26,16 @@ import java.util.UUID;
 public class AccountManager {
 
     private UUID player;
+    private AccountSecurity plugin;
+    FileConfiguration data;
 
-    public AccountManager(UUID uuid) {
+    public AccountManager(AccountSecurity main, UUID uuid) {
         player = uuid;
+        plugin = main;
     }
 
-    public AccountManager(Player playerInstance) {
+    public AccountManager(AccountSecurity main, Player playerInstance) {
         player = playerInstance.getUniqueId();
+        plugin = main;
     }
 }
