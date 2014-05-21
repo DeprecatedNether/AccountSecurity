@@ -18,16 +18,20 @@
 
 package pw.deprecatednether.security;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerLoginEvent;
 
-public class AccountSecurity extends JavaPlugin {
-    @Override
-    public void onEnable() {
-        getServer().getPluginManager().registerEvents(new EventListeners(this), this);
+public class EventListeners implements Listener {
+
+    private AccountSecurity plugin;
+
+    public EventListeners(AccountSecurity main) {
+        plugin = main;
     }
 
-    @Override
-    public void onDisable() {
+    @EventHandler
+    public void login(PlayerLoginEvent e) {
 
     }
 }
