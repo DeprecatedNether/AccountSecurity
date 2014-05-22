@@ -61,6 +61,14 @@ public class AccountManager {
         return YamlConfiguration.loadConfiguration(file);
     }
 
+    private void saveConfiguration() {
+        try {
+            data.save(new File(new File(plugin.getDataFolder(), "userdata"), player.toString() + ".yml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Get the hostname the player must connect with.
      * @return The hostname. Null if none specified.
