@@ -74,7 +74,7 @@ public class AccountManager {
      * @return The hostname. Null if none specified.
      */
     public String getConnectHostname() {
-        return "";
+        return data.getString("hostname");
     }
 
     /**
@@ -82,7 +82,8 @@ public class AccountManager {
      * @param hostname The hostname. If null, this check is disabled.
      */
     public void setConnectHostname(String hostname) {
-
+        data.set("hostname", hostname);
+        saveConfiguration();
     }
 
     /**
@@ -90,7 +91,7 @@ public class AccountManager {
      * @return The IP. If null, this check is disabled.
      */
     public String getClientIP() {
-        return "";
+        return data.getString("ip-address");
     }
 
     /**
@@ -98,6 +99,7 @@ public class AccountManager {
      * @param address The IP address.
      */
     public void setClientIP(String address) {
-
+        data.set("ip-address", address);
+        saveConfiguration();
     }
 }
