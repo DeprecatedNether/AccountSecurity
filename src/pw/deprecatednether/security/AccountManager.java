@@ -60,4 +60,36 @@ public class AccountManager {
         }
         return YamlConfiguration.loadConfiguration(file);
     }
+
+    /**
+     * Get the hostname the player must connect with.
+     * @return The hostname. Null if none specified.
+     */
+    public String getConnectHostname() {
+        return "";
+    }
+
+    /**
+     * Set a hostname the player has to connect with.
+     * @param hostname The hostname. If null, this check is disabled.
+     */
+    public void setConnectHostname(String hostname) {
+
+    }
+
+    /**
+     * Get the IP address the client has to connect from.
+     * @return The IP. If null, this check is disabled.
+     */
+    public String getClientIP() {
+        return "";
+    }
+
+    /**
+     * Set the IP the player has to connect with.
+     * @param address The IP address.
+     */
+    public void setClientIP(String address) {
+
+    }
 }
