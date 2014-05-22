@@ -18,17 +18,19 @@
 
 package pw.deprecatednether.security;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 
-public class AccountSecurity extends JavaPlugin {
-    @Override
-    public void onEnable() {
-        getServer().getPluginManager().registerEvents(new EventListeners(this), this);
-        getCommand("accountsecurity").setExecutor(new CommandHandlers(this));
+public class CommandHandlers implements CommandExecutor {
+    private AccountSecurity plugin;
+
+    public CommandHandlers(AccountSecurity main) {
+        plugin = main;
     }
 
     @Override
-    public void onDisable() {
-
+    public boolean onCommand(CommandSender sender, Command cmd, String lbl, String[] args) {
+        return false;
     }
 }
