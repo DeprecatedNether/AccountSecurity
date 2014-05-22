@@ -18,6 +18,7 @@
 
 package pw.deprecatednether.security;
 
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
@@ -33,5 +34,20 @@ public class EventListeners implements Listener {
     @EventHandler
     public void login(PlayerLoginEvent e) {
 
+        AccountManager manager = new AccountManager(plugin, e.getPlayer().getUniqueId());
+
+        // Check hostname
+        String hostname = manager.getConnectHostname();
+        if (hostname != null && !e.getHostname().equals(hostname)) {
+            e.setResult(PlayerLoginEvent.Result.KICK_OTHER);
+            e.setKickMessage(ChatColor.DARK_RED + "[AccountSecurity]\n" + ChatColor.RED + "Invalid hostname.");
+        }
+
+        // Check IP
+        String ip = manager.getClientIP();
+        if (ip != null && !e.getAddress().getHostAddress().equals(ip)) {
+            e.setResult(PlayerLoginEvent.Result.KICK_OTHER);
+            e.setKickMessage(ChatColor.DARK_RED + "[AccountSecurity]\n" + ChatColor.RED + "Invalid client IP.");
+        }
     }
 }
