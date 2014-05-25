@@ -7,3 +7,15 @@ commands:
     description: Base AccountSecurity command
     aliases: [as, asecurity]
 permissions:
+  accountsecurity.others:
+    default: op
+    description: Change other players' settings
+  accountsecurity.command:
+    default: true
+    description: Allow access to command
+  accountsecurity.hostname:
+    default: true
+    description: Allow toggling hostname authentication
+  accountsecurity.ip:
+    default: true
+    description: Allow toggling IP authentication
