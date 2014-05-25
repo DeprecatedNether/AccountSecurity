@@ -38,12 +38,6 @@ public class AccountManager {
         data = loadConfiguration();
     }
 
-    public AccountManager(AccountSecurity main, Player playerInstance) {
-        player = playerInstance.getUniqueId();
-        plugin = main;
-        data = loadConfiguration();
-    }
-
     private FileConfiguration loadConfiguration() {
         File folder = new File(plugin.getDataFolder(), "userdata");
         if (!folder.isDirectory()) {
