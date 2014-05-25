@@ -18,7 +18,9 @@
 
 package pw.deprecatednether.security;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -71,21 +73,38 @@ public class CommandHandlers implements CommandExecutor {
             sender.sendMessage(ChatColor.GREEN + "If you ever get locked out of your account, you may contact an administrator to disable the check.");
             return true;
         }
-        if (args.length != 1) {
+        if (args.length > 2 || args.length < 1) {
             sender.sendMessage(ChatColor.RED + "Invalid arguments.");
             return true;
         }
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "You must be a player!");
+        if (!(sender instanceof Player) && args.length == 1) {
+            sender.sendMessage(ChatColor.RED + "You can't secure the console's (or command block's) account!");
             return true;
         }
-        Player player = (Player) sender;
+        OfflinePlayer player;
+        if (args.length == 1) {
+            player = (OfflinePlayer) sender;
+        } else {
+            if (sender.hasPermission("accountsecurity.others")) {
+                player = Bukkit.getServer().getOfflinePlayer(args[1]);
+            } else {
+                sender.sendMessage(ChatColor.RED + "No permission");
+                return true;
+            }
+        }
         if (args[0].equalsIgnoreCase("ip")) {
             AccountManager manager = new AccountManager(plugin, player.getUniqueId());
             boolean enable = manager.getClientIP() == null ? true : false;
-            String ip = enable ? player.getAddress().getAddress().getHostAddress() : null;
+            if (enable) {
+                if (!player.isOnline()) {
+                    sender.sendMessage(ChatColor.RED + player.getName() + " has IP authentication disabled at the moment. They need to be online to have it enabled.");
+                    return true;
+                }
+            }
+            Player target = player.getPlayer();
+            String ip = enable ? target.getAddress().getAddress().getHostAddress() : null;
             manager.setClientIP(ip);
-            player.sendMessage(ChatColor.DARK_AQUA + "AccountSecurity: " + ChatColor.GREEN + (enable ? "Your account can now only connect from this IP address (" + ip + "). To be able to connect from other IP addresses, issue the command (/" + lbl + " ip) again." : "You can now connect from any IP address again."));
+            sender.sendMessage(ChatColor.DARK_AQUA + "AccountSecurity: " + ChatColor.GREEN + (enable ? "Your account can now only connect from this IP address (" + ip + "). To be able to connect from other IP addresses, issue the command (/" + lbl + " ip) again." : "You can now connect from any IP address again."));
         }
         if (args[0].equalsIgnoreCase("hostname")) {
             AccountManager manager = new AccountManager(plugin, player.getUniqueId());
@@ -101,7 +120,7 @@ public class CommandHandlers implements CommandExecutor {
                 sub = sub + "." + plugin.getConfig().getString("base-hostname");
             }
             manager.setConnectHostname(sub);
-            player.sendMessage(ChatColor.DARK_AQUA + "AccountSecurity: " + ChatColor.GREEN + (enable ? "You should now use " + sub + " to connect to the server." : "You can now connect with any hostname again."));
+            sender.sendMessage(ChatColor.DARK_AQUA + "AccountSecurity: " + ChatColor.GREEN + (enable ? "You should now use " + sub + " to connect to the server." : "You can now connect with any hostname again."));
         }
         return false;
     }
