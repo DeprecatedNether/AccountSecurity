@@ -93,6 +93,10 @@ public class CommandHandlers implements CommandExecutor {
             }
         }
         if (args[0].equalsIgnoreCase("ip")) {
+            if (!sender.hasPermission("accountsecurity.ip")) {
+                sender.sendMessage(ChatColor.RED + "No access");
+                return true;
+            }
             AccountManager manager = new AccountManager(plugin, player.getUniqueId());
             boolean enable = manager.getClientIP() == null ? true : false;
             if (enable) {
@@ -107,6 +111,10 @@ public class CommandHandlers implements CommandExecutor {
             sender.sendMessage(ChatColor.DARK_AQUA + "AccountSecurity: " + ChatColor.GREEN + (enable ? "Your account can now only connect from this IP address (" + ip + "). To be able to connect from other IP addresses, issue the command (/" + lbl + " ip) again." : "You can now connect from any IP address again."));
         }
         if (args[0].equalsIgnoreCase("hostname")) {
+            if (sender.hasPermission("accountsecurity.hostname")) {
+                sender.sendMessage(ChatColor.RED + "No access");
+                return true;
+            }
             AccountManager manager = new AccountManager(plugin, player.getUniqueId());
             boolean enable = manager.getConnectHostname() == null ? true : false;
             String sub = null;
