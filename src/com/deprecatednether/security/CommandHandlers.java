@@ -98,7 +98,7 @@ public class CommandHandlers implements CommandExecutor {
                 return true;
             }
             AccountManager manager = new AccountManager(plugin, player.getUniqueId());
-            boolean enable = manager.getClientIP() == null ? true : false;
+            boolean enable = manager.getClientIP() == null;
             if (enable) {
                 if (!player.isOnline()) {
                     sender.sendMessage(ChatColor.RED + player.getName() + " has IP authentication disabled at the moment. They need to be online to have it enabled.");
@@ -116,7 +116,7 @@ public class CommandHandlers implements CommandExecutor {
                 return true;
             }
             AccountManager manager = new AccountManager(plugin, player.getUniqueId());
-            boolean enable = manager.getConnectHostname() == null ? true : false;
+            boolean enable = manager.getConnectHostname() == null;
             String sub = null;
             if (enable) {
                 sub = "";
