@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package pw.deprecatednether.security;
+package com.deprecatednether.security;
 
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;

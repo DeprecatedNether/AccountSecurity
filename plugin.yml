@@ -1,7 +1,7 @@
 name: AccountSecurity
 version: 0.1
 author: DeprecatedNether
-main: pw.deprecatednether.security.AccountSecurity
+main: com.deprecatednether.security.AccountSecurity
 commands:
   accountsecurity:
     description: Base AccountSecurity command
